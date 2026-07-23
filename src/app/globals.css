@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --explorer-nav-w: 240px;
+  --explorer-panel-w: 30%;
+  --fly-neon: #3d6b8a;
+  --fly-glow: #5a7a94;
+  --fly-black: #2a2a2a;
+  --font-display: var(--font-body);
+  --premium-bg: #bfbfbf;
+  --premium-panel: rgba(255, 255, 255, 0.72);
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #6b6b6b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--premium-bg);
+  color: var(--text-primary);
+  scroll-snap-type: y mandatory;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  background: var(--premium-bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+::selection {
+  background: rgba(90, 122, 148, 0.25);
+  color: var(--text-primary);
+}
+
+/* Aerospace ash studio backdrop */
+.bg-aerospace-ash {
+  background: linear-gradient(180deg, #d6d6d6 0%, #bfbfbf 50%, #a8a8a8 100%);
+}
+
+.bg-aerospace-vignette {
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 45%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}
+
+.bg-premium-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Frosted glass spec panel — light industrial */
+.glass-panel {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(245, 245, 245, 0.78) 50%,
+    rgba(235, 235, 235, 0.85) 100%
+  );
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(32px) saturate(120%);
+  -webkit-backdrop-filter: blur(32px) saturate(120%);
+  box-shadow:
+    -16px 0 48px rgba(0, 0, 0, 0.08),
+    inset 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+@media (min-width: 768px) {
+  .glass-panel {
+    border-top: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .explorer-canvas {
+    left: var(--explorer-nav-w);
+    width: calc(100% - var(--explorer-nav-w) - var(--explorer-panel-w));
+  }
+
+  .explorer-chrome {
+    left: var(--explorer-nav-w);
+    width: calc(100% - var(--explorer-nav-w) - var(--explorer-panel-w));
+  }
+}
+
+/* Responsive Large Screens / 75", 100" TV Displays */
+@media (min-width: 1920px) {
+  :root {
+    --explorer-nav-w: 280px;
+    --explorer-panel-w: 28%;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --explorer-nav-w: 360px;
+    --explorer-panel-w: 26%;
+  }
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 3840px) {
+  :root {
+    --explorer-nav-w: 480px;
+    --explorer-panel-w: 24%;
+  }
+  html {
+    font-size: 24px;
+  }
+}
+
+.explorer-nav {
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .explorer-canvas {
+    top: var(--explorer-nav-mobile-h, 7.5rem);
+    height: calc(58vh - var(--explorer-nav-mobile-h, 7.5rem));
+  }
+
+  .explorer-chrome {
+    top: var(--explorer-nav-mobile-h, 7.5rem);
+    height: calc(58vh - var(--explorer-nav-mobile-h, 7.5rem));
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(180deg, #1a1a1a 0%, #3d3d3d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
