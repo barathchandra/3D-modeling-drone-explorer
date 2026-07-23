@@ -52,11 +52,6 @@ export function PartGroup({ slideIndex, children }: PartGroupProps) {
   const tweenToFocus = (section: number) => {
     const overview = section === 0;
     const activeIndex = getActiveComponentIndex(section);
-
-    if (activeSlide.current !== activeIndex || isOverview.current !== overview) {
-      pivotReady.current = false;
-    }
-
     isOverview.current = overview;
     activeSlide.current = activeIndex;
 

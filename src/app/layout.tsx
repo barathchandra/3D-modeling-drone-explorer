@@ -13,10 +13,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Flydronics — Component Explorer",
   description: "Premium interactive 3D drone engineering explorer.",
-  icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -27,7 +27,7 @@ export function useSnapSections() {
       scrollStore.requestOrbitReset();
 
       lenis.scrollTo(clamped * window.innerHeight, {
-        duration: 1.0,
+        duration: 1.75,
         easing: (t) => 1 - Math.pow(1 - t, 3),
         onComplete: () => {
           locking.current = false;
@@ -35,7 +35,7 @@ export function useSnapSections() {
       });
       window.setTimeout(() => {
         locking.current = false;
-      }, 1050);
+      }, 1850);
     },
     [lenis],
   );

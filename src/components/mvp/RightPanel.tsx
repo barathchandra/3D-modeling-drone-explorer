@@ -22,9 +22,9 @@ export function RightPanel() {
   return (
     <aside
       data-spec-panel
-      className="glass-panel pointer-events-auto fixed bottom-0 right-0 z-10 flex h-[46vh] w-full flex-col justify-start overflow-y-auto md:bottom-auto md:top-0 md:h-screen md:w-[var(--explorer-panel-w)] md:justify-center"
+      className="glass-panel pointer-events-auto fixed bottom-0 right-0 z-10 flex h-[44vh] w-full flex-col justify-center md:bottom-auto md:top-0 md:h-screen md:w-[30%]"
     >
-      <div className="flex min-h-full flex-col justify-center px-6 py-6 md:px-10 md:py-12 lg:px-12 2xl:px-16">
+      <div className="flex h-full flex-col justify-center px-8 py-8 md:px-12 md:py-14 lg:px-14">
         <AnimatePresence mode="wait">
           {isOverview ? (
             <motion.div

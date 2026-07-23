@@ -105,34 +105,6 @@ body {
   }
 }
 
-/* Responsive Large Screens / 75", 100" TV Displays */
-@media (min-width: 1920px) {
-  :root {
-    --explorer-nav-w: 280px;
-    --explorer-panel-w: 28%;
-  }
-}
-
-@media (min-width: 2560px) {
-  :root {
-    --explorer-nav-w: 360px;
-    --explorer-panel-w: 26%;
-  }
-  html {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 3840px) {
-  :root {
-    --explorer-nav-w: 480px;
-    --explorer-panel-w: 24%;
-  }
-  html {
-    font-size: 24px;
-  }
-}
-
 .explorer-nav {
   height: auto;
 }

@@ -10,7 +10,7 @@ export const OVERVIEW_SCALE = 0.88;
 
 export const FOCUS_DEPTH_ACTIVE = 0.12;
 
-export const FOCUS_TWEEN_DURATION = 1.0;
+export const FOCUS_TWEEN_DURATION = 1.75;
 export const FOCUS_TWEEN_EASE = "power3.inOut";
 
 /**

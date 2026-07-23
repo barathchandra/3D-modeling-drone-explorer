@@ -43,8 +43,7 @@ export function DroneCanvas() {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      const deviceDpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
-      setDpr(w < 768 ? 1 : Math.min(2.0, deviceDpr));
+      setDpr(w < 768 ? 1 : Math.min(1.75, window.devicePixelRatio || 1));
     };
     update();
     window.addEventListener("resize", update);

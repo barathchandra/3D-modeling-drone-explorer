@@ -73,7 +73,7 @@ export function ComponentPreloaderScreen() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative z-10 w-full max-w-xl md:max-w-2xl 2xl:max-w-3xl rounded-2xl border border-black/[0.08] bg-[rgba(255,255,255,0.92)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-xl md:p-8 2xl:p-10"
+            className="relative z-10 w-full max-w-xl rounded-2xl border border-black/[0.08] bg-[rgba(255,255,255,0.92)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-xl md:p-8"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-black/[0.06] pb-4">

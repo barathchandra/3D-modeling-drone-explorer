@@ -51,7 +51,6 @@ export function ComponentFocusCamera() {
   const fitted = useRef({ target: DEFAULT_TARGET.clone(), position: DEFAULT_CAMERA.clone() });
 
   const applyFit = (slideIndex: number) => {
-    viewDir.current.copy(DEFAULT_CAMERA).sub(DEFAULT_TARGET).normalize();
     const bounds = focusBoundsStore.get(slideIndex);
     const aspect = size.width / Math.max(size.height, 1);
     const target = new THREE.Vector3(...INSPECT_CENTER);
