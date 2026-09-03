@@ -18,7 +18,7 @@ import { scrollStore } from "@/lib/scrollStore";
 
 const DEFAULT_TARGET = new THREE.Vector3(...PRESENTATION_CAMERA.target);
 const DEFAULT_CAMERA = new THREE.Vector3(...PRESENTATION_CAMERA.position);
-const FIT_PADDING = 1.38;
+const FIT_PADDING = 1.22;
 const MIN_DISTANCE = ORBIT_LIMITS.minDistance;
 const MAX_DISTANCE = ORBIT_LIMITS.maxDistance;
 

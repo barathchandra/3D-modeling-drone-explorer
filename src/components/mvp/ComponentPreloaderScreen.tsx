@@ -56,16 +56,6 @@ export function ComponentPreloaderScreen() {
   const displayProgress = Math.min(100, Math.round(simulatedProgress));
   const isLoaded = displayProgress >= 100 || (!active && minTimeElapsed);
 
-  // Auto-dismiss smoothly once loaded so user does not need to wait or click
-  useEffect(() => {
-    if (isLoaded && !userDismissed) {
-      const autoDismiss = setTimeout(() => {
-        setUserDismissed(true);
-      }, 500);
-      return () => clearTimeout(autoDismiss);
-    }
-  }, [isLoaded, userDismissed]);
-
   return (
     <AnimatePresence>
       {!userDismissed && (
@@ -98,7 +88,9 @@ export function ComponentPreloaderScreen() {
                 <span className="font-mono text-xs font-bold text-[#2a2a2a] sm:text-sm">
                   {String(Math.min(12, Math.floor((displayProgress / 100) * 12))).padStart(2, "0")} / 12
                 </span>
-                <p className="text-[9px] uppercase tracking-[0.15em] text-[#6b6b6b] sm:text-[10px]">Ready</p>
+                <p className="text-[9px] uppercase tracking-[0.15em] text-[#6b6b6b] sm:text-[10px]">
+                  {isLoaded ? "Ready" : "Loading"}
+                </p>
               </div>
             </div>
 
@@ -150,19 +142,31 @@ export function ComponentPreloaderScreen() {
               })}
             </div>
 
-            {/* Bottom Action / Status */}
+            {/* Bottom Action / Status - User must press Enter Explorer button once loaded */}
             <div className="mt-5 flex items-center justify-between border-t border-black/[0.06] pt-3 sm:mt-7 sm:pt-4">
               <p className="text-[11px] text-[#6b6b6b] sm:text-xs">
-                {isLoaded ? "Ready — entering explorer..." : "Loading 3D scene..."}
+                {isLoaded ? "All 12 components initialized." : "Preloading 3D models into memory..."}
               </p>
 
-              <button
-                type="button"
-                onClick={() => setUserDismissed(true)}
-                className="rounded-lg bg-[#2a2a2a] px-3.5 py-2 text-[11px] font-medium text-white shadow-sm transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-black/20 sm:px-5 sm:py-2.5 sm:text-xs"
-              >
-                {isLoaded ? "Enter Explorer →" : "Skip to Explorer →"}
-              </button>
+              {isLoaded ? (
+                <motion.button
+                  type="button"
+                  onClick={() => setUserDismissed(true)}
+                  initial={{ scale: 0.92, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-[#1a1a1a] px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-[#3d5a6e] sm:px-5 sm:py-2.5"
+                >
+                  <span>Enter Explorer</span>
+                  <span aria-hidden>→</span>
+                </motion.button>
+              ) : (
+                <div className="flex items-center gap-2 text-xs text-[#5a5a5a]">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#3d5a6e]" />
+                  <span className="text-[11px] sm:text-xs">Loading {displayProgress}%...</span>
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

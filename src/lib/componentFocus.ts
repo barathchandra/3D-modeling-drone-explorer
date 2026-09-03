@@ -4,13 +4,13 @@ import { SLIDE_COUNT } from "./droneComponents";
 /** Showcase anchor — center of the 3D canvas viewport (world origin). */
 export const INSPECT_CENTER: Vector3Tuple = [0, 0, 0];
 
-export const ACTIVE_SCALE = 1.65;
+export const ACTIVE_SCALE = 2.06; // +25% size increase (from 1.65)
 export const INACTIVE_SCALE = 0.35;
-export const OVERVIEW_SCALE = 0.88;
+export const OVERVIEW_SCALE = 1.10; // +25% size increase (from 0.88)
 
-export const FOCUS_DEPTH_ACTIVE = 0.12;
+export const FOCUS_DEPTH_ACTIVE = 0.22; // Move active component forward toward camera
 
-export const FOCUS_TWEEN_DURATION = 1.75;
+export const FOCUS_TWEEN_DURATION = 1.2;
 export const FOCUS_TWEEN_EASE = "power3.inOut";
 
 /**
