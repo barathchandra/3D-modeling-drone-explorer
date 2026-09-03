@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+        "3xl": "1920px",
+        "4k": "2560px",
+      },
       colors: {
         fly: {
           black: "#050608",

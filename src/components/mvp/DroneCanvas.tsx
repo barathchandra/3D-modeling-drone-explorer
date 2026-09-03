@@ -43,7 +43,13 @@ export function DroneCanvas() {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      setDpr(w < 768 ? 1 : Math.min(1.75, window.devicePixelRatio || 1));
+      if (w < 768) {
+        setDpr(Math.min(1.2, window.devicePixelRatio || 1));
+      } else if (w >= 2560) {
+        setDpr(Math.min(1.5, window.devicePixelRatio || 1));
+      } else {
+        setDpr(Math.min(1.75, window.devicePixelRatio || 1));
+      }
     };
     update();
     window.addEventListener("resize", update);
@@ -63,7 +69,7 @@ export function DroneCanvas() {
   return (
     <div
       data-viewport="3d"
-      className="explorer-canvas pointer-events-auto fixed left-0 top-0 z-[5] h-[58vh] w-full cursor-grab active:cursor-grabbing md:h-screen"
+      className="explorer-canvas pointer-events-auto fixed z-[5] cursor-grab active:cursor-grabbing"
       style={{ touchAction: "none" }}
       onDoubleClick={() => scrollStore.requestOrbitReset()}
       onWheel={stopScroll}

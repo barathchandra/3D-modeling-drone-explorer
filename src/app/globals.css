@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 :root {
+  --explorer-nav-mobile-h: 3.75rem;
   --explorer-nav-w: 240px;
-  --explorer-panel-w: 30%;
+  --explorer-panel-w: 32%;
   --fly-neon: #3d6b8a;
   --fly-glow: #5a7a94;
   --fly-black: #2a2a2a;
@@ -14,6 +15,27 @@
   --text-primary: #1a1a1a;
   --text-secondary: #4a4a4a;
   --text-muted: #6b6b6b;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --explorer-nav-w: 210px;
+    --explorer-panel-w: 280px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --explorer-nav-w: 300px;
+    --explorer-panel-w: 28%;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --explorer-nav-w: 380px;
+    --explorer-panel-w: 26%;
+  }
 }
 
 * {
@@ -92,15 +114,20 @@ body {
   .glass-panel {
     border-top: none;
     border-left: 1px solid rgba(0, 0, 0, 0.06);
+    width: var(--explorer-panel-w);
   }
 
   .explorer-canvas {
     left: var(--explorer-nav-w);
+    top: 0;
+    height: 100vh;
     width: calc(100% - var(--explorer-nav-w) - var(--explorer-panel-w));
   }
 
   .explorer-chrome {
     left: var(--explorer-nav-w);
+    top: 0;
+    height: 100vh;
     width: calc(100% - var(--explorer-nav-w) - var(--explorer-panel-w));
   }
 }
@@ -110,15 +137,43 @@ body {
 }
 
 @media (max-width: 767px) {
+  html,
+  body {
+    overflow: hidden !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    overscroll-behavior: none;
+    touch-action: pan-x pan-y;
+  }
+
   .explorer-canvas {
-    top: var(--explorer-nav-mobile-h, 7.5rem);
-    height: calc(58vh - var(--explorer-nav-mobile-h, 7.5rem));
+    top: var(--explorer-nav-mobile-h);
+    height: calc(52dvh - var(--explorer-nav-mobile-h));
+    width: 100%;
+    left: 0;
   }
 
   .explorer-chrome {
-    top: var(--explorer-nav-mobile-h, 7.5rem);
-    height: calc(58vh - var(--explorer-nav-mobile-h, 7.5rem));
+    top: var(--explorer-nav-mobile-h);
+    height: calc(52dvh - var(--explorer-nav-mobile-h));
+    width: 100%;
+    left: 0;
   }
+}
+
+/* Sleek custom scrollbars for spec panels and mobile views */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .text-gradient {

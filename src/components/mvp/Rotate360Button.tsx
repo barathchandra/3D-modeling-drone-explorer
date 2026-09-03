@@ -34,7 +34,7 @@ export function Rotate360Button({ active, onToggle, className = "" }: Rotate360B
       onClick={handleClick}
       aria-pressed={isActive}
       aria-label={isActive ? "Stop 360 rotation" : "Start 360 rotation"}
-      className={`pointer-events-auto inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition ${
+      className={`pointer-events-auto inline-flex items-center gap-1.5 sm:gap-2 rounded-full border px-3 py-1.5 sm:px-4 sm:py-2 4k:px-6 4k:py-3 text-[10px] sm:text-[11px] 4k:text-sm font-medium uppercase tracking-[0.14em] shadow-xs transition ${
         isActive
           ? "border-[#2a3a48] bg-[#2a3a48] text-white shadow-sm"
           : "border-black/[0.12] bg-white/95 text-[#3a3a3a] hover:bg-white"

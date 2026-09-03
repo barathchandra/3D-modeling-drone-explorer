@@ -18,8 +18,8 @@ export function ComponentExplorer() {
   return (
     <SnapScrollProvider scrollToSection={scrollToSection}>
       <ComponentPreloaderScreen />
-      <div ref={scrollRootRef} className="relative min-h-screen bg-[#bfbfbf]">
-      <div className="pointer-events-none relative z-0">
+      <div ref={scrollRootRef} className="relative h-[100dvh] md:h-auto md:min-h-screen overflow-hidden md:overflow-visible bg-[#bfbfbf]">
+      <div className="pointer-events-none relative z-0 hidden md:block">
         {MVP_SECTIONS.map((section, index) => (
           <section
             key={section.id}
@@ -36,7 +36,7 @@ export function ComponentExplorer() {
       <LeftNavPanel />
       <DroneCanvas />
       <ViewportChrome />
-      <div className="pointer-events-none fixed bottom-4 right-4 z-30 md:bottom-8 md:right-8">
+      <div className="pointer-events-none fixed top-[calc(var(--explorer-nav-mobile-h)+0.75rem)] right-3 z-30 md:top-auto md:bottom-8 md:right-8 4k:bottom-12 4k:right-12">
         <Rotate360Button />
       </div>
       <RightPanel />
