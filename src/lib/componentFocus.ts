@@ -7,6 +7,7 @@ export const INSPECT_CENTER: Vector3Tuple = [0, 0, 0];
 export const ACTIVE_SCALE = 2.06; // +25% size increase (from 1.65)
 export const INACTIVE_SCALE = 0.35;
 export const OVERVIEW_SCALE = 1.10; // +25% size increase (from 0.88)
+export const INSPECT_TARGET_SIZE = 0.22; // Matches FlySky transmitter size across all components
 
 export const FOCUS_DEPTH_ACTIVE = 0.22; // Move active component forward toward camera
 

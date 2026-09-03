@@ -2,10 +2,11 @@
 
 import type { ReactNode } from "react";
 import { MODEL_PATHS } from "@/lib/modelPaths";
+import { INSPECT_TARGET_SIZE } from "@/lib/componentFocus";
 import { LazyGlbPart } from "./LazyGlbPart";
 
 const MODEL_PATH = MODEL_PATHS.gps;
-const TARGET_SIZE = 0.14;
+const TARGET_SIZE = INSPECT_TARGET_SIZE;
 const GPS_SLIDE_INDEX = 7;
 
 type GpsModelProps = {

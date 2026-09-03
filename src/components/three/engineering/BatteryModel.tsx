@@ -2,10 +2,11 @@
 
 import type { ReactNode } from "react";
 import { MODEL_PATHS } from "@/lib/modelPaths";
+import { INSPECT_TARGET_SIZE } from "@/lib/componentFocus";
 import { LazyGlbPart } from "./LazyGlbPart";
 
 const MODEL_PATH = MODEL_PATHS.battery;
-const TARGET_SIZE = 0.2;
+const TARGET_SIZE = INSPECT_TARGET_SIZE;
 const BATTERY_SLIDE_INDEX = 3;
 
 type BatteryModelProps = {

@@ -4,9 +4,10 @@ import type { ReactNode } from "react";
 import { LazyGlbPart } from "./LazyGlbPart";
 
 import { MODEL_PATHS } from "@/lib/modelPaths";
+import { INSPECT_TARGET_SIZE } from "@/lib/componentFocus";
 
 const MODEL_PATH = MODEL_PATHS.pdb;
-const TARGET_SIZE = 0.18;
+const TARGET_SIZE = INSPECT_TARGET_SIZE;
 const PDB_SLIDE_INDEX = 6;
 
 type Props = {
@@ -19,7 +20,6 @@ export function PdbModel({ placeholder }: Props) {
       modelPath={MODEL_PATH}
       targetSize={TARGET_SIZE}
       slideIndex={PDB_SLIDE_INDEX}
-      position={[0, 0.02, 0]}
       placeholder={placeholder}
     />
   );

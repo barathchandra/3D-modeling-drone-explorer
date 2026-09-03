@@ -7,6 +7,7 @@ import * as THREE from "three";
 import {
   FOCUS_TWEEN_DURATION,
   FOCUS_TWEEN_EASE,
+  INSPECT_TARGET_SIZE,
   OVERVIEW_SCALE,
 } from "@/lib/componentFocus";
 import { scrollStore } from "@/lib/scrollStore";
@@ -128,13 +129,13 @@ function EscBoard({ x, z }: { x: number; z: number }) {
 /** Dedicated FC stack — offset from PDB/battery/ESC for clear separation in assembly. */
 const FC_ASSEMBLY_OFFSET: [number, number, number] = [0, 0.11, 0.05];
 
-function FlightControllerBoard() {
+function FlightControllerBoard({ position = [0, 0, 0] }: { position?: [number, number, number] }) {
   const pcb = useMemo(() => pcbMaterial(), []);
   const chip = useMemo(() => pcbChipMaterial(), []);
   const alum = useMemo(() => anodizedMaterial("#2a3a4a"), []);
   const conn = useMemo(() => connectorMaterial(), []);
   return (
-    <group position={[0, 0, 0]}>
+    <group position={position}>
       <mesh material={pcb} castShadow>
         <boxGeometry args={[0.2, 0.022, 0.2]} />
       </mesh>
@@ -405,20 +406,18 @@ export function EngineeringDrone() {
       </PartGroup>
 
       <PartGroup slideIndex={4}>
-        <group position={FC_ASSEMBLY_OFFSET}>
-          <LazyGlbPart
-            modelPath={FC_MODEL}
-            targetSize={0.16}
-            slideIndex={4}
-            placeholder={<FlightControllerBoard />}
-          />
-        </group>
+        <LazyGlbPart
+          modelPath={FC_MODEL}
+          targetSize={INSPECT_TARGET_SIZE}
+          slideIndex={4}
+          placeholder={<FlightControllerBoard position={FC_ASSEMBLY_OFFSET} />}
+        />
       </PartGroup>
 
       <PartGroup slideIndex={5}>
         <LazyGlbPart
           modelPath={PIXHAWK_MODEL}
-          targetSize={0.14}
+          targetSize={INSPECT_TARGET_SIZE}
           slideIndex={5}
           placeholder={<PixhawkPlaceholder />}
         />

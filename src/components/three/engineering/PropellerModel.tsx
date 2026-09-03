@@ -2,10 +2,11 @@
 
 import type { ReactNode } from "react";
 import { MODEL_PATHS } from "@/lib/modelPaths";
+import { INSPECT_TARGET_SIZE } from "@/lib/componentFocus";
 import { LazyGlbPart } from "./LazyGlbPart";
 
 const MODEL_PATH = MODEL_PATHS.propeller;
-const TARGET_SIZE = 0.14;
+const TARGET_SIZE = INSPECT_TARGET_SIZE;
 const PROPELLER_SLIDE_INDEX = 0;
 
 type PropellerModelProps = {

@@ -2,10 +2,11 @@
 
 import type { ReactNode } from "react";
 import { MODEL_PATHS } from "@/lib/modelPaths";
+import { INSPECT_TARGET_SIZE } from "@/lib/componentFocus";
 import { LazyGlbPart } from "./LazyGlbPart";
 
 const MODEL_PATH = MODEL_PATHS.frame;
-const TARGET_SIZE = 0.24;
+const TARGET_SIZE = INSPECT_TARGET_SIZE;
 const AIRFRAME_SLIDE_INDEX = 9;
 
 type AirframeModelProps = {

@@ -44,11 +44,48 @@ function offsetCameraFromTarget(
 
 export function ComponentFocusCamera() {
   const { camera, size, controls } = useThree();
-  const tween = useRef<gsap.core.Tween | null>(null);
+  const camTween = useRef<gsap.core.Tween | null>(null);
+  const targetTween = useRef<gsap.core.Tween | null>(null);
   const viewDir = useRef(
     DEFAULT_CAMERA.clone().sub(DEFAULT_TARGET).normalize(),
   );
   const fitted = useRef({ target: DEFAULT_TARGET.clone(), position: DEFAULT_CAMERA.clone() });
+
+  const animateCamera = (target: THREE.Vector3, position: THREE.Vector3) => {
+    fitted.current.target.copy(target);
+    fitted.current.position.copy(position);
+
+    camTween.current?.kill();
+    targetTween.current?.kill();
+
+    const ctrl = controls as OrbitControlsImpl | null;
+
+    if (ctrl) {
+      targetTween.current = gsap.to(ctrl.target, {
+        x: target.x,
+        y: target.y,
+        z: target.z,
+        duration: FOCUS_TWEEN_DURATION,
+        ease: FOCUS_TWEEN_EASE,
+        overwrite: "auto",
+        onUpdate: () => {
+          ctrl.update();
+        },
+      });
+    }
+
+    camTween.current = gsap.to(camera.position, {
+      x: position.x,
+      y: position.y,
+      z: position.z,
+      duration: FOCUS_TWEEN_DURATION,
+      ease: FOCUS_TWEEN_EASE,
+      overwrite: "auto",
+      onUpdate: () => {
+        if (ctrl) ctrl.update();
+      },
+    });
+  };
 
   const applyFit = (slideIndex: number) => {
     const bounds = focusBoundsStore.get(slideIndex);
@@ -62,38 +99,7 @@ export function ComponentFocusCamera() {
     }
 
     const position = offsetCameraFromTarget(target, distance, viewDir.current);
-    fitted.current.target.copy(target);
-    fitted.current.position.copy(position);
-
-    tween.current?.kill();
-    tween.current = gsap.to(camera.position, {
-      x: position.x,
-      y: position.y,
-      z: position.z,
-      duration: FOCUS_TWEEN_DURATION,
-      ease: FOCUS_TWEEN_EASE,
-      overwrite: true,
-      onUpdate: () => {
-        const ctrl = controls as OrbitControlsImpl | null;
-        if (ctrl) {
-          ctrl.target.copy(target);
-          ctrl.update();
-        }
-      },
-    });
-
-    const ctrl = controls as OrbitControlsImpl | null;
-    if (ctrl) {
-      gsap.to(ctrl.target, {
-        x: target.x,
-        y: target.y,
-        z: target.z,
-        duration: FOCUS_TWEEN_DURATION,
-        ease: FOCUS_TWEEN_EASE,
-        overwrite: true,
-        onUpdate: () => ctrl.update(),
-      });
-    }
+    animateCamera(target, position);
   };
 
   const applyOverview = () => {
@@ -107,70 +113,11 @@ export function ComponentFocusCamera() {
         aspect,
       );
       const position = offsetCameraFromTarget(target, distance, viewDir.current);
-      fitted.current.target.copy(target);
-      fitted.current.position.copy(position);
-
-      tween.current?.kill();
-      tween.current = gsap.to(camera.position, {
-        x: position.x,
-        y: position.y,
-        z: position.z,
-        duration: FOCUS_TWEEN_DURATION,
-        ease: FOCUS_TWEEN_EASE,
-        overwrite: true,
-        onUpdate: () => {
-          const ctrl = controls as OrbitControlsImpl | null;
-          if (ctrl) {
-            ctrl.target.copy(target);
-            ctrl.update();
-          }
-        },
-      });
-      const ctrl = controls as OrbitControlsImpl | null;
-      if (ctrl) {
-        gsap.to(ctrl.target, {
-          x: target.x,
-          y: target.y,
-          z: target.z,
-          duration: FOCUS_TWEEN_DURATION,
-          ease: FOCUS_TWEEN_EASE,
-          overwrite: true,
-          onUpdate: () => ctrl.update(),
-        });
-      }
+      animateCamera(target, position);
       return;
     }
 
-    fitted.current.target.copy(DEFAULT_TARGET);
-    fitted.current.position.copy(DEFAULT_CAMERA);
-    tween.current?.kill();
-    tween.current = gsap.to(camera.position, {
-      x: DEFAULT_CAMERA.x,
-      y: DEFAULT_CAMERA.y,
-      z: DEFAULT_CAMERA.z,
-      duration: FOCUS_TWEEN_DURATION,
-      ease: FOCUS_TWEEN_EASE,
-      overwrite: true,
-      onUpdate: () => {
-        const ctrl = controls as OrbitControlsImpl | null;
-        if (ctrl) {
-          ctrl.target.copy(DEFAULT_TARGET);
-          ctrl.update();
-        }
-      },
-    });
-    const ctrl = controls as OrbitControlsImpl | null;
-    if (ctrl) {
-      gsap.to(ctrl.target, {
-        x: DEFAULT_TARGET.x,
-        y: DEFAULT_TARGET.y,
-        z: DEFAULT_TARGET.z,
-        duration: FOCUS_TWEEN_DURATION,
-        ease: FOCUS_TWEEN_EASE,
-        overwrite: true,
-        onUpdate: () => ctrl.update(),
-      });
-    }
+    animateCamera(DEFAULT_TARGET, DEFAULT_CAMERA);
   };
 
   useEffect(() => {
@@ -198,7 +145,8 @@ export function ComponentFocusCamera() {
     return () => {
       unsubSection();
       unsubBounds();
-      tween.current?.kill();
+      camTween.current?.kill();
+      targetTween.current?.kill();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- camera rig reacts to viewport + scroll
   }, [camera, size.width, size.height, controls]);
@@ -206,6 +154,8 @@ export function ComponentFocusCamera() {
   useEffect(
     () =>
       scrollStore.subscribeOrbitReset(() => {
+        camTween.current?.kill();
+        targetTween.current?.kill();
         camera.position.copy(fitted.current.position);
         const ctrl = controls as OrbitControlsImpl | null;
         if (ctrl) {

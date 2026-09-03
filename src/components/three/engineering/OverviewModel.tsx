@@ -1,8 +1,7 @@
 "use client";
 
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { Component, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { focusBoundsStore } from "@/lib/focusBoundsStore";
 import { MODEL_PATHS } from "@/lib/modelPaths";
@@ -17,7 +16,7 @@ function OverviewGlbMesh() {
   const { scene } = useGLTF(MODEL_PATH);
   const model = useMemo(() => prepareGltfScene(scene, TARGET_SIZE), [scene]);
 
-  useFrame(() => {
+  useLayoutEffect(() => {
     if (!root.current) return;
     const box = new THREE.Box3().setFromObject(root.current);
     if (box.isEmpty()) return;
@@ -27,7 +26,7 @@ function OverviewGlbMesh() {
       center: sphere.center.clone(),
       radius: Math.max(sphere.radius, 0.2),
     });
-  });
+  }, [model]);
 
   return (
     <group ref={root}>
