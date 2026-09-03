@@ -14,14 +14,21 @@ export function prepareGltfScene(scene: THREE.Object3D, targetSize: number): THR
     }
   });
 
+  cloned.updateMatrixWorld(true);
+
   const box = new THREE.Box3().setFromObject(cloned);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z) || 1;
   const scale = targetSize / maxDim;
 
-  cloned.position.sub(center);
-  cloned.scale.setScalar(scale);
+  // Offset cloned scene so its geometry center is at local (0, 0, 0)
+  cloned.position.set(-center.x, -center.y, -center.z);
 
-  return cloned;
+  // Wrapper group scales uniformly around the true (0, 0, 0) center
+  const wrapper = new THREE.Group();
+  wrapper.scale.setScalar(scale);
+  wrapper.add(cloned);
+
+  return wrapper;
 }

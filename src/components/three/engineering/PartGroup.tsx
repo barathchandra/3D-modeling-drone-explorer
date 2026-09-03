@@ -77,10 +77,16 @@ export function PartGroup({ slideIndex, children }: PartGroupProps) {
   }, [slideIndex]);
 
   useFrame(() => {
-    if (!outer.current) return;
-    if (!pivotReady.current) recalcPivot();
+    if (!outer.current || !inner.current) return;
 
     const inspecting = !isOverview.current && activeSlide.current === slideIndex;
+
+    // Ensure pivot is always accurate to the currently rendered geometry (placeholder or loaded GLB)
+    if (inspecting) {
+      recalcPivot();
+    } else if (!pivotReady.current) {
+      recalcPivot();
+    }
     const { px, py, pz, scale } = focus.current;
 
     const position = new THREE.Vector3(px, py, pz);
